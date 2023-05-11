@@ -1,1 +1,85 @@
 \chapter{Estado del Arte}\label{chapter:state-of-the-art}
+
+\section{Modelo de aprendizaje automático basado en EfficientNetB5 para el diagnóstico de afecciones dermatológicas}\label{sec:dev}
+%-----------------------------------------------------------------------------------
+En este trabajo revisamos diferentes modelos de Machine Learning, los implementamos y proponemos parámetros y configuraciones enfocados al diagnóstico de afecciones dermatológicas. 
+Nuestro modelo comienza procesando las imágenes a través de una Red Neuronal Convolucional, que entrega los resultados a una Máquina de Vectores Soporte que procederá a la clasificación de las imágenes segmentadas. 
+Aplicamos una red EfficientNet a través de parámetros de tasa de aprendizaje sugeridos. A continuación detallamos cada una de las etapas. 
+
+%-----------------------------------------------------------------------------------
+	\subsection{Redes neuronales convolucionales}\label{sub:cnn}
+%-----------------------------------------------------------------------------------
+Las redes neuronales convolucionales (CNN) tienen una arquitectura específica que resulta especialmente útil en tareas de reconocimiento y clasificación de imágenes, como la identificación de caras, objetos y señales de tráfico. 
+Las CNN se basan en métodos de aprendizaje supervisado, lo que significa que necesitan datos etiquetados para entrenarse. 
+El objetivo principal es aprender la relación entre los objetos de entrada y sus correspondientes etiquetas de clase. 
+Las CNN constan de dos componentes principales: las capas ocultas, que extraen características de los datos de entrada, y las capas totalmente conectadas, que realizan la tarea de clasificación propiamente dicha.
+
+En comparación con las redes neuronales normales, la arquitectura de las capas ocultas de una CNN es única. 
+En una red neuronal típica, cada capa contiene un conjunto de neuronas y cada neurona está conectada a todas las neuronas de la capa anterior. 
+En una CNN, sin embargo, las neuronas de una capa sólo están conectadas a un pequeño número de neuronas de la capa anterior. 
+Esto se debe a que las CNN se basan en operaciones de convolución, que consisten en filtrar una imagen utilizando una máscara. 
+La salida de cada píxel es una combinación lineal de los píxeles de entrada. 
+La entrada de una CNN suele ser una imagen con una anchura, una altura y un número de canales (W x H x D). 
+El uso de convoluciones reduce la carga computacional del sistema, y esta restricción a conexiones locales y capas de agrupamiento simplifica el entrenamiento y reduce la complejidad del modelo.
+
+%-----------------------------------------------------------------------------------
+	\subsection{Máquina de vectores soporte (SVM)}\label{sub:svm}
+%-----------------------------------------------------------------------------------
+SVM (Support Vector Machine) es un enfoque supervisado que utiliza un algoritmo de aprendizaje principalmente para clasificar los datos en diferentes clases con el uso de un hiperplano que actúa como límite de decisión. 
+La SVM estudia los datos de entrenamiento etiquetados y, a continuación, clasifica cualquier entrada nueva basándose en lo aprendido en la fase de entrenamiento. 
+Se crea un hiperplano aleatorio y, a continuación, se comprueba la distancia entre el hiperplano y los puntos de datos más cercanos de cada clase. 
+Estos puntos de datos más cercanos al hiperplano se conocen como vectores de soporte Y de ahí viene el nombre, máquinas de vectores de soporte.
+
+En este proyecto SVM se utiliza para clasificar tumores malignos e imágenes benignas de cáncer de piel, esto se hace pasando las imágenes segmentadas y las características extraídas a SVM donde SVM escribe el hiperplano y agrupa todas las características cercanas similares en diferentes clases.
+
+%-----------------------------------------------------------------------------------
+	\subsection{Modelo EfficientNetB5}\label{sub:efficientnetB5}
+%-----------------------------------------------------------------------------------
+Las redes neuronales convolucionales %\cite{cnn} 
+suelen desarrollarse con un coste fijo de recursos, y luego se escalan para lograr una mayor precisión cuando se dispone de más recursos. 
+Por ejemplo, ResNet puede escalarse de ResNet-18 a ResNet-200 aumentando el número de capas.
+
+La práctica convencional para escalar el modelo consiste en aumentar arbitrariamente la profundidad o la anchura de las redes neuronales convolucionales, o en utilizar una mayor resolución de la imagen de entrada para el entrenamiento y la evaluación. 
+Aunque estos métodos mejoran la precisión, suelen requerir un tedioso ajuste manual y, aun así, a menudo producen un rendimiento subóptimo.
+En concreto, EfficientNetB5 %\cite{tan} 
+es una extensión de EfficientNetB0 \- B6 que se ajusta al tamaño de las imágenes que manejamos dentro del conjunto de datos.
+
+%-----------------------------------------------------------------------------------
+	\subsection{Learning Rate Adjustment (LRA)}\label{sub:lra}
+%-----------------------------------------------------------------------------------
+Una red neuronal aprende o aproxima una función para asignar mejor las entradas a las salidas de los ejemplos del conjunto de datos de entrenamiento.
+
+El ajuste de la tasa de aprendizaje controla la tasa o velocidad a la que aprende el modelo. 
+En concreto, controla la cantidad de error prorrateado con la que se actualizan los pesos del modelo cada vez que se actualizan, como al final de cada conjunto de ejemplos de entrenamiento.
+
+%-----------------------------------------------------------------------------------
+\section{Entendimiento del Machine Learning aplicado al trabajo}\label{sec:machine_learning_aplicado}
+%-----------------------------------------------------------------------------------
+El aprendizaje automático (Machine Learning, ML) se centra en analizar problemas humanos con cierto grado de aprendizaje. 
+Este proyecto se centra en el aprendizaje supervisado mediante un modelo basado en redes neuronales que funciona de la siguiente manera:
+
+\begin{enumerate}
+			\item Se dispone de un Dataset (Dataset en adelante) que contiene la principal fuente de verdad. 
+      Para este proyecto, utilizamos el Dataset HAM10000, que contiene 10000 imágenes de lesiones cutáneas previamente clasificadas correctamente.
+			\item Dicho conjunto de datos se divide en 3 subconjuntos (datos de entrenamiento, datos de prueba y datos de validación)
+			%
+			\begin{description}
+			\item [Data de entrenamiento]  es el dataset del que el modelo a entrenar conoce previamente su clasificación. 
+			\item [Datos de validaci\'on] en cada iteración del entrenamiento del modelo, los resultados predichos por el modelo se contrastan con la clasificación de las imágenes de este subconjunto.
+                \item [Datos de prueba] se utilizan para comprobar la eficacia del modelo entrenado.
+		\end{description}
+			%
+                \item Se realizan sucesivas iteraciones para entrenar el modelo donde en cada paso `de alguna manera' (que veremos más adelante) partimos inicialmente de un modelo pseudoaleatorio y tomando el modelo del paso anterior lo `entrenamos' para predecir los resultados del conjunto de validación y del conjunto de entrenamiento.
+                \item Durante cada iteración del entrenamiento del modelo, se obtienen estadísticas importantes para evaluar el rendimiento del modelo, incluyendo `validationLoss', `trainingLoss', `validationAccuracy' y `testAccuracy'. `validationLoss' y `trainingLoss' son medidas del error del modelo durante el entrenamiento; 
+                validationLoss se calcula sobre un conjunto de datos distinto al de entrenamiento e indica la capacidad del modelo para generalizar a datos nuevos y no vistos durante el entrenamiento, mientras que trainingLoss mide el error del modelo sobre el conjunto de datos de entrenamiento. 
+                La precisión de validación se refiere a la precisión del modelo en el conjunto de datos de validación, que es un subconjunto del conjunto de datos de entrenamiento. 
+                Durante el proceso de entrenamiento, el modelo se evalúa en el conjunto de datos de validación después de cada época para comprobar su rendimiento y ajustar sus parámetros en consecuencia. 
+                Esto se hace para evitar el sobreajuste y garantizar que el modelo se generaliza bien a los nuevos datos. 
+                Por otro lado, la precisión de la prueba se refiere a la precisión del modelo en un conjunto de datos completamente distinto, que no se utiliza durante el entrenamiento o la validación.
+                
+                El objetivo del conjunto de datos de prueba es proporcionar una estimación no sesgada del rendimiento del modelo en datos nuevos que no se han visto. 
+                Basándose en estas estadísticas, se toman decisiones importantes para mejorar el modelo, como ajustar la tasa de aprendizaje, cambiar la arquitectura del modelo, etc. 
+                Por lo tanto, la supervisión constante de estas estadísticas es esencial para entrenar un modelo preciso y eficaz.
+		\end{enumerate}
+
+%-----------------------------------------------------------------------------------

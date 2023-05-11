@@ -1,2 +1,40 @@
 \chapter*{Introducción}\label{chapter:introduction}
 \addcontentsline{toc}{chapter}{Introducción}
+
+La medicina es una rama de la ciencia en constante evolución. 
+Cada vez se desarrollan más métodos innovadores para mejorar el diagnóstico precoz de enfermedades potencialmente mortales cuya detección temprana puede prolongar considerablemente la esperanza de vida de los pacientes. 
+En este esfuerzo constante, tanto médicos como informáticos se han esforzado por poner a disposición de los pacientes algunas herramientas para la detección precoz de estas afecciones.
+
+En la actualidad, la detección del cáncer de piel es un proceso estrictamente humano que depende del oncólogo y de una prueba que en algunos países puede resultar bastante cara (la biopsia). 
+Aunque en algunos países ya se está intentando utilizar modelos computacionales para la detección.
+La dermatología y la oncologic pueden acercarse a la informática a través de la detección precoz de afecciones cancerosas de la piel, con una foto de una lesión en una fase temprana y un conjunto de datos de imágenes de lesiones diagnosticadas, más tarde, el ordenador puede ser entrenado para alertar a los médicos de posibles afecciones antes de que se desarrollen y se conviertan en letales. 
+Según la Sociedad Americana del Cáncer, véase, Mitchell et al. %(2020)\cite{mitchell},
+los cánceres de piel melanoma tienen un estadio temprano formalmente llamado estadio 0 o
+ melanoma \textit{in situ} donde el tratamiento arroja una tasa de éxito de casi el 100\% ya que sólo se necesita una cirugía menor para extirpar la porción de piel afectada. 
+Esto hace que la detección precoz de esta enfermedad sea una premisa para mejorar el tratamiento oncológico.
+
+El Aprendizaje Automático (Machine Learning, ML) es una rama de la Inteligencia Artificial que permite a los sistemas encontrar patrones en los datos sin ser programados específicamente. 
+Este enfoque ha permitido resolver tareas bastante difíciles de realizar con la programación convencional, como la identificación de objetos en imágenes y la comprensión de lenguajes naturales. 
+El principal objetivo del ML es crear modelos capaces de aprender de los datos y adaptarse a los cambios. 
+El aprendizaje automático puede aplicarse en todos los ámbitos en los que exista una relación de dependencia entre la entrada y la salida. 
+Estos algoritmos dependen de los datos, lo que significa que su selección y procesamiento es muy importante para que funcionen eficazmente.
+
+Esteva et al., %(2017)\cite{esteva} 
+publicaron un artículo en el que utilizaron una red neuronal convolucional (CNN) para la detección de melanomas. 
+La red neuronal se entrenó con un conjunto de datos de imágenes de melanomas y se obtuvo una precisión del 72,1 \% en la detección de melanomas. 
+El trabajo es pionero en el uso de CNN's en la detección de melanomas y sienta las bases para futuras investigaciones en esta área. 
+Posteriormente se introdujo en el área la tecnología de aprendizaje profundo o Deep Learning, un método que extrae automáticamente un conjunto de características representativas para su posterior clasificación y que ha mejorado drásticamente la eficacia de la clasificación. 
+Esta nueva tecnología tiene el potencial de mejorar la precisión de la clasificación informática de las imágenes clínicas convencionales hasta el nivel de los dermatólogos expertos. 
+Esta nueva tecnología y el desarrollo actual de clasificadores de tumores cutáneos asistidos por ordenador se resumen en Fujisawa et al., %(2019).\cite{fujisawa} 
+
+Ningrum et al., %(2021)\cite{ningrum} 
+desarrollaron la detección de melanomas malignos basada en imágenes dermatoscópicas y metadatos del paciente utilizando un modelo de inteligencia artificial (IA) que funciona en dispositivos de bajos recursos. 
+
+Para la solución del problema se utilizan algoritmos de redes neuronales tales como Redes Neuronales Convolucionales para procesamiento de imágenes específicamente del tipo EfficientNetB5, así como métodos de aprendizaje supervisado, tales como, Support Vector Machine (SVM) y Learning Rate Adjustment (LRA). 
+La detección de melanomas mediante técnicas de Machine Learning ha sido un tema de investigación en los últimos años.
+
+Estas permiten el mejor manejo y escalado de las imágenes para su procesamiento. Los datos utilizados corresponden al concurso HAM10000 (Human Against Machine, con 10000 imágenes de entrenamiento), que contiene imágenes dermatoscópicas de múltiples fuentes de lesiones cutáneas cancerosas y no cancerosas. 
+Estas imágenes fueron previamente segmentadas, parametrizadas y clasificadas.
+
+El presente trabajo pretende desarrollar y explorar los aportes que el aprendizaje automático puede ofrecer a la detección de enfermedades de la piel como los diferentes tipos de cáncer en un primer momento, para posteriormente presentar nuestros resultados. 
+Este proyecto pretende ayudar a la detección precoz y precisa de las siguientes enfermedades de la piel: Melanoma (MEL), Nevus Melanocítico (NV), Carcinoma de Células Basales (BCC), Queratosis Actínica, Enfermedad de Bowen (carcinoma intraepitelial) (AKIEC), Queratosis Benigna (BKL), Dermatofibroma (DF), Lesión Vascular (VASC).
