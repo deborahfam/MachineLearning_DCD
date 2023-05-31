@@ -2,17 +2,21 @@
 
 \section{Modelo de aprendizaje automático basado en EfficientNetB5 para el diagnóstico de afecciones dermatológicas}\label{sec:dev}
 %-----------------------------------------------------------------------------------
-En este trabajo revisamos diferentes modelos de Machine Learning, los implementamos y proponemos parámetros y configuraciones enfocados al diagnóstico de afecciones dermatológicas. 
-Nuestro modelo comienza procesando las imágenes a través de una Red Neuronal Convolucional, que entrega los resultados a una Máquina de Vectores Soporte que procederá a la clasificación de las imágenes segmentadas. 
+En este trabajo revisamos diferentes modelos de Machine Learning, los implementamos y proponemos parámetros y configuraciones enfocados al 
+diagnóstico de afecciones dermatológicas. 
+Nuestro modelo comienza procesando las imágenes a través de una Red Neuronal Convolucional, que entrega los resultados a una Máquina de Vectores 
+Soporte que procederá a la clasificación de las imágenes segmentadas. 
 Aplicamos una red EfficientNet a través de parámetros de tasa de aprendizaje sugeridos. A continuación detallamos cada una de las etapas. 
 
 %-----------------------------------------------------------------------------------
 	\subsection{Redes neuronales convolucionales}\label{sub:cnn}
 %-----------------------------------------------------------------------------------
-Las redes neuronales convolucionales (CNN) tienen una arquitectura específica que resulta especialmente útil en tareas de reconocimiento y clasificación de imágenes, como la identificación de caras, objetos y señales de tráfico. 
+Las redes neuronales convolucionales (CNN) tienen una arquitectura específica que resulta especialmente útil en tareas de reconocimiento y 
+clasificación de imágenes, como la identificación de caras, objetos y señales de tráfico. 
 Las CNN se basan en métodos de aprendizaje supervisado, lo que significa que necesitan datos etiquetados para entrenarse. 
 El objetivo principal es aprender la relación entre los objetos de entrada y sus correspondientes etiquetas de clase. 
-Las CNN constan de dos componentes principales: las capas ocultas, que extraen características de los datos de entrada, y las capas totalmente conectadas, que realizan la tarea de clasificación propiamente dicha.
+Las CNN constan de dos componentes principales: las capas ocultas, que extraen características de los datos de entrada, y las capas totalmente 
+conectadas, que realizan la tarea de clasificación propiamente dicha.
 
 En comparación con las redes neuronales normales, la arquitectura de las capas ocultas de una CNN es única. 
 En una red neuronal típica, cada capa contiene un conjunto de neuronas y cada neurona está conectada a todas las neuronas de la capa anterior. 
@@ -20,17 +24,21 @@ En una CNN, sin embargo, las neuronas de una capa sólo están conectadas a un p
 Esto se debe a que las CNN se basan en operaciones de convolución, que consisten en filtrar una imagen utilizando una máscara. 
 La salida de cada píxel es una combinación lineal de los píxeles de entrada. 
 La entrada de una CNN suele ser una imagen con una anchura, una altura y un número de canales (W x H x D). 
-El uso de convoluciones reduce la carga computacional del sistema, y esta restricción a conexiones locales y capas de agrupamiento simplifica el entrenamiento y reduce la complejidad del modelo.
+El uso de convoluciones reduce la carga computacional del sistema, y esta restricción a conexiones locales y capas de agrupamiento simplifica el 
+entrenamiento y reduce la complejidad del modelo.
 
 %-----------------------------------------------------------------------------------
 	\subsection{Máquina de vectores soporte (SVM)}\label{sub:svm}
 %-----------------------------------------------------------------------------------
-SVM (Support Vector Machine) es un enfoque supervisado que utiliza un algoritmo de aprendizaje principalmente para clasificar los datos en diferentes clases con el uso de un hiperplano que actúa como límite de decisión. 
-La SVM estudia los datos de entrenamiento etiquetados y, a continuación, clasifica cualquier entrada nueva basándose en lo aprendido en la fase de entrenamiento. 
+SVM (Support Vector Machine) es un enfoque supervisado que utiliza un algoritmo de aprendizaje principalmente para clasificar los datos en diferentes 
+clases con el uso de un hiperplano que actúa como límite de decisión. 
+La SVM estudia los datos de entrenamiento etiquetados y, a continuación, clasifica cualquier entrada nueva basándose en lo aprendido en la fase de 
+entrenamiento. 
 Se crea un hiperplano aleatorio y, a continuación, se comprueba la distancia entre el hiperplano y los puntos de datos más cercanos de cada clase. 
 Estos puntos de datos más cercanos al hiperplano se conocen como vectores de soporte Y de ahí viene el nombre, máquinas de vectores de soporte.
 
-En este proyecto SVM se utiliza para clasificar tumores malignos e imágenes benignas de cáncer de piel, esto se hace pasando las imágenes segmentadas y las características extraídas a SVM donde SVM escribe el hiperplano y agrupa todas las características cercanas similares en diferentes clases.
+En este proyecto SVM se utiliza para clasificar tumores malignos e imágenes benignas de cáncer de piel, esto se hace pasando las imágenes segmentadas 
+y las características extraídas a SVM donde SVM escribe el hiperplano y agrupa todas las características cercanas similares en diferentes clases.
 
 %-----------------------------------------------------------------------------------
 	\subsection{Modelo EfficientNetB5}\label{sub:efficientnetB5}
